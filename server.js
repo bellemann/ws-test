@@ -25,7 +25,7 @@ wss.on("connection", (ws, req) => {
   ws.on("message", (msg) => {
     const channel = channels.get(channelId);
     channel.forEach((client) => {
-      if (client.readyState === 1) {
+      if (client !== ws && client.readyState === 1) {
         client.send(`ping: ${msg}`);
       }
     });
